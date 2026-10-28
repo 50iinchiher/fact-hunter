@@ -1,0 +1,419 @@
+/* Баримт Анчин — үндсэн CSS. Суурь: design/design-styles.css (A–H дэлгэц). */
+
+/* ============================================================ 1. ТОКЕН */
+:root{
+  --paper:#F3ECDD;--paper2:#E9DFC9;--ink:#2A2420;--muted:#7A6E62;--line:#DCCFB8;
+  --red:#B8342A;--green:#3E7B4F;--amber:#C98A1B;--navy:#1F2A3D;--brown:#8B6A45;--tape:#F2D16B;
+  --fbg:#65676B;--fbl:#E4E6EB;--fbbg:#F0F2F5;
+  --desk:#EDE4D2;--soft:#F6F1E4;--gold:#FFF4B8;--okbg:#E4F1E6;--badbg:#FBE3E0;--warnbg:#FFF4D6;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:"Noto Serif",Georgia,"Times New Roman",serif;
+  --fast:180ms;--ease:cubic-bezier(.2,.8,.2,1);
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#CFC6B5;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+button:disabled{cursor:not-allowed}
+input{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+b,strong{font-weight:800}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* ============================================================ 2. УТАСНЫ ХҮРЭЭ */
+.phone{position:relative;width:100%;max-width:420px;height:100vh;height:100dvh;margin:0 auto;background:var(--desk);overflow:hidden;display:flex;flex-direction:column}
+@media (min-width:520px){
+  body{display:flex;align-items:center;justify-content:center;padding:24px}
+  .phone{height:min(844px,calc(100dvh - 48px));border-radius:36px;box-shadow:0 12px 32px rgba(0,0,0,.18),0 0 0 10px #1c1916}
+}
+.view{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;animation:viewIn var(--fast) var(--ease)}
+@keyframes viewIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view.paper{background:var(--paper)}
+.view.white{background:#fff}
+
+/* ============================================================ 3. ЕРӨНХИЙ ЭЛЕМЕНТ */
+.hud{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px 8px}
+.hud .mid{font-size:12px;font-weight:700;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;white-space:nowrap}
+.dark{background:var(--ink);color:var(--paper);letter-spacing:1px}
+.gold{background:var(--gold);font-size:12px}
+.timer{background:var(--badbg);color:var(--red);font-size:12px}
+.body{flex:1;display:flex;flex-direction:column;gap:10px;padding:2px 14px 14px;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.spacer{flex:1}
+.label{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.serif{font-family:var(--serif)}
+.center{text-align:center}
+
+/* Бөмбөлөг (Галаа / Мийку) */
+.hint{display:flex;gap:10px;align-items:flex-start}
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:50% 6%;flex-shrink:0;background:#EBDBC2}
+.av.c{object-position:50% 4%;background:#D2DCEC}
+.av.lg{width:64px;height:64px}
+.bubble{background:#fff;border:1.5px solid var(--line);border-radius:4px 14px 14px 14px;padding:8px 11px;font-size:12.5px;line-height:1.45;flex:1}
+.bubble small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1px;color:var(--brown);margin-bottom:2px}
+.bubble.me small{color:#2F3E5C}
+.bubble.tip{border-radius:14px;background:#FFF9E3;border-color:var(--tape)}
+.hint.pop .bubble{animation:pop 220ms var(--ease)}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+
+/* Үндсэн товч: хар + хатуу сүүдэр */
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:52px;border-radius:14px;padding:14px 15px;text-align:center;font-weight:700;font-size:15.5px;background:var(--ink);color:#fff;box-shadow:0 4px 0 #000;transition:transform 120ms,box-shadow 120ms}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.btn .mode-time{font-size:12px;font-weight:600;opacity:.65;margin-left:2px}
+.btn.red{background:var(--red);box-shadow:0 4px 0 #6d1d17}
+.btn.green{background:var(--green);box-shadow:0 4px 0 #24492f}
+.btn:disabled,.btn.off{background:#D9D0C0;color:#8A8174;box-shadow:none;transform:none}
+.link{display:inline-flex;align-items:center;min-height:44px;padding:0 8px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+
+/* Хадгалах товч (жижиг, хүрэх талбай ≥44px) */
+.pin{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;border:1.5px solid var(--ink);border-radius:999px;padding:6px 11px;min-height:32px;font-size:11px;font-weight:800;background:#fff;white-space:nowrap;flex-shrink:0}
+.pin::after{content:"";position:absolute;inset:-7px -4px}
+.pin.on{background:var(--green);border-color:var(--green);color:#fff}
+.pin.alt{background:var(--gold)}
+
+/* Toast */
+.toast{position:absolute;left:50%;bottom:calc(100px + var(--safe-b));transform:translateX(-50%);z-index:60;width:max-content;max-width:calc(100% - 28px);background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;border-radius:12px;padding:10px 14px;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.3);animation:toastIn 200ms var(--ease);pointer-events:none}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ============================================================ 4. FACEBOOK ПОСТ (бодит FB хэв маяг) */
+.post{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding-top:12px;display:flex;flex-direction:column;gap:10px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;flex-shrink:0}
+.post.mini{opacity:.9}
+.ph{display:flex;gap:9px;align-items:center;padding:4px 6px;width:100%;text-align:left}
+.ph-wrap{padding:0 10px}
+.pav{width:40px;height:40px;border-radius:50%;background:#5B6B80;color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pn{font-size:14.5px;font-weight:700;color:#050505;line-height:1.2}
+.pm{font-size:12px;color:var(--fbg)}
+.pmore{margin-left:auto;font-size:20px;color:var(--fbg);letter-spacing:1px}
+.ptxt{padding:0 12px;font-size:14.5px;line-height:1.38;color:#050505;overflow-wrap:anywhere}
+.pimg{display:block;width:100%;padding:0}
+.pimg .img{height:180px}
+.react{display:flex;justify-content:space-between;align-items:center;padding:0 10px;font-size:12.5px;color:var(--fbg)}
+.react .cnt{display:inline-flex;align-items:center;min-height:36px;padding:4px 8px;color:var(--fbg)}
+.acts{display:flex;justify-content:space-around;border-top:1px solid var(--fbl);margin:0 10px;padding:4px 0 6px;font-size:13px;font-weight:600;color:var(--fbg)}
+.acts span{padding:6px 8px;border-radius:6px}
+/* Холбоосны карт */
+.plink{display:flex;flex-direction:column;background:var(--fbbg);border-top:1px solid var(--fbl);border-bottom:1px solid var(--fbl);padding:9px 12px;text-align:left;width:100%}
+.plink small{font-size:11.5px;color:var(--fbg);text-transform:uppercase}
+.plink b{font-size:14px;color:#050505;font-weight:700}
+
+/* Hotspot */
+.hot{outline:2px dashed var(--red);outline-offset:2px;border-radius:10px;position:relative}
+.hot.flash{animation:flash 400ms ease-in-out 5}
+@keyframes flash{50%{outline-color:transparent;background:rgba(242,209,107,.35)}}
+.tag{position:absolute;background:var(--red);color:#fff;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 9px;z-index:2;white-space:nowrap;pointer-events:none}
+.viral{display:flex;justify-content:space-between;gap:8px;background:var(--badbg);color:var(--red);font-weight:700;font-size:11.5px;border-radius:10px;padding:7px 12px;flex-shrink:0}
+.viral .n{font-variant-numeric:tabular-nums;transition:transform 200ms}
+.viral .n.bump{transform:scale(1.12)}
+.lock-note{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:11.5px;font-weight:600;color:var(--muted);text-align:center}
+
+/* Зургийн placeholder-ууд (image.kind) */
+.img{position:relative;overflow:hidden;border-radius:8px;background:#BDB4A4}
+.img .cap{position:absolute;left:8px;bottom:7px;max-width:calc(100% - 16px);z-index:3;font-size:10.5px;font-weight:600;color:#fff;background:rgba(20,18,16,.55);border-radius:6px;padding:2px 7px;text-align:left}
+.post-mini .img .cap,.res .img .cap,.query-img .img .cap,.post-mini .product::after,.res .product::after,.query-img .product::after{display:none}
+.pimg .img{border-radius:0}
+.smog{position:relative;overflow:hidden;background:linear-gradient(#CFC4AF,#7D7366)}
+.smog::before{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:
+ linear-gradient(#3F3A35bf,#3F3A35bf) 0 100%/40px 35% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 34px 100%/28px 55% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 66px 100%/46px 30% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 118px 100%/22px 65% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 144px 100%/40px 42% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 188px 100%/30px 58% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 222px 100%/52px 34% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 278px 100%/24px 50% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 306px 100%/40px 40% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 350px 100%/48px 46% no-repeat;}
+.smog::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(217,209,194,.15),rgba(191,179,158,.55))}
+.product{background:radial-gradient(circle at 50% 45%,#fff 0 30%,#E9F3F6 60%,#CFE3EA)}
+.product::before{content:"";position:absolute;left:50%;top:14%;width:28%;height:64%;transform:translateX(-50%);border-radius:14px;background:linear-gradient(90deg,#E4E8EA,#fff 40%,#D6DCE0);box-shadow:0 6px 14px rgba(0,0,0,.18),inset 0 -14px 0 #C9D1D6}
+.product::after{content:"-90%";position:absolute;right:10px;top:10px;background:#E02424;color:#fff;font-weight:900;font-size:16px;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;transform:rotate(-12deg)}
+.crowd{background:linear-gradient(#9FB3C8,#C8BFAE)}
+.crowd::before{content:"";position:absolute;inset:auto 0 0 0;height:65%;background:
+ radial-gradient(circle at 8% 40%,#4A4038 0 10px,transparent 11px),radial-gradient(circle at 20% 30%,#5B4E44 0 11px,transparent 12px),
+ radial-gradient(circle at 33% 42%,#3E3630 0 10px,transparent 11px),radial-gradient(circle at 46% 28%,#62544A 0 12px,transparent 13px),
+ radial-gradient(circle at 59% 40%,#4A4038 0 10px,transparent 11px),radial-gradient(circle at 72% 30%,#55493F 0 11px,transparent 12px),
+ radial-gradient(circle at 86% 42%,#3E3630 0 10px,transparent 11px),linear-gradient(transparent 50%,#4A4038 50%)}
+.video{background:linear-gradient(135deg,#2A2D34,#4A4F5C)}
+.video::before{content:"";position:absolute;left:50%;top:50%;width:56px;height:56px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.88)}
+.video::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-35%,-50%);border-left:18px solid #2A2D34;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.doc{background:#F7F7F2}
+.doc::before{content:"";position:absolute;inset:14px 18% 26px;background:#fff;border:1px solid #DDD;box-shadow:0 3px 8px rgba(0,0,0,.08),inset 0 18px 0 #2B6CB0;
+ background-image:repeating-linear-gradient(transparent 0 30px,#E5E5E5 30px 33px,transparent 33px 40px);background-clip:content-box;padding:28px 14px 0}
+.doc::after{content:"";position:absolute;right:20%;bottom:30px;width:36%;height:36%;background:linear-gradient(90deg,#3E7B4F 0 22%,transparent 22% 26%,#C98A1B 26% 48%,transparent 48% 52%,#B8342A 52% 74%,transparent 74% 78%,#B8342A 78%);
+ -webkit-mask:linear-gradient(transparent 55%,#000 55%) 0 0/25% 100% no-repeat,linear-gradient(transparent 30%,#000 30%) 33% 0/25% 100% no-repeat,linear-gradient(transparent 10%,#000 10%) 66% 0/25% 100% no-repeat,linear-gradient(#000,#000) 100% 0/25% 100% no-repeat;opacity:.8}
+
+/* ============================================================ 5. МӨРДӨГЧИЙН САМБАР */
+.bar{background:#fff;border-top:1.5px solid var(--line);display:flex;gap:8px;align-items:center;padding:10px 12px calc(14px + var(--safe-b));flex-shrink:0;position:relative;z-index:5}
+.tool{position:relative;background:var(--soft);border-radius:12px;padding:6px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;gap:1px;min-width:58px;min-height:50px;text-align:center}
+.tool.on{background:var(--gold);outline:1.5px solid var(--ink)}
+.tool .ic{font-size:17px;line-height:20px}
+.tool img{width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:50% 6%;background:#EBDBC2}
+.badge{position:absolute;top:-5px;right:-4px;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;border-radius:999px;padding:1px 6px}
+.judge{flex:1;border-radius:12px;min-height:50px;padding:13px 8px;text-align:center;font-size:14px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 3px 0 #000}
+.judge.off{background:#D9D0C0;color:#8A8174;box-shadow:none}
+
+/* ============================================================ 6. SHEET / PANEL */
+.dim{position:absolute;inset:0;background:rgba(20,18,16,.45);z-index:20;animation:fade var(--fast)}
+@keyframes fade{from{opacity:0}}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:21;max-height:88%;overflow-y:auto;overscroll-behavior:contain;background:#fff;border-radius:22px 22px 0 0;padding:10px 16px calc(24px + var(--safe-b));box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:9px;animation:up 220ms var(--ease)}
+@keyframes up{from{transform:translateY(40%);opacity:.4}}
+.grab{width:40px;height:5px;border-radius:9px;background:#D4D4D4;margin:0 auto 4px;flex-shrink:0}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sheet-h b{font-size:16px}
+.x{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:18px;color:var(--fbg);flex-shrink:0}
+.panel{position:absolute;inset:0;z-index:30;background:#fff;display:flex;flex-direction:column;animation:slideIn 220ms var(--ease)}
+@keyframes slideIn{from{transform:translateX(30%);opacity:.3}}
+.topbar{display:flex;gap:6px;align-items:center;padding:12px 12px 8px;flex-shrink:0}
+.back{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:600;flex-shrink:0}
+.topbar .title{flex:1;font-size:16px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* B · Хуудас судлах */
+.cover{height:92px;flex-shrink:0;background:linear-gradient(90deg,#FF5A3C,#FFB23C)}
+.page-id{display:flex;gap:12px;align-items:center;padding:0 16px 6px;margin-top:-22px}
+.page-id .pav{width:66px;height:66px;font-size:15px;border:3px solid #fff}
+.page-id .nm{font-size:19px;font-weight:800;line-height:1.2;margin-top:18px}
+.box-fb{background:var(--fbbg);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.box-fb>b{font-size:14px}
+.fact{display:flex;gap:8px;align-items:center;background:#fff;border-radius:10px;padding:9px 10px}
+.fact.on{background:var(--okbg);outline:1.5px solid var(--green)}
+.fact div{flex:1;min-width:0}
+.fact small{display:block;font-size:11px;font-weight:600;color:var(--fbg)}
+.fact b{font-size:13.5px;color:#050505;font-weight:700}
+.recent{display:flex;gap:8px}
+.recent div{flex:1;background:var(--fbbg);border-radius:10px;padding:8px;font-size:11px;font-weight:700;min-height:64px;line-height:1.3}
+
+/* C · Зургаар хайх */
+.search{display:flex;align-items:center;gap:8px;background:var(--fbbg);border-radius:999px;padding:0 14px;min-height:44px;font-size:14px;font-weight:600;flex:1;min-width:0}
+.search input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-size:16px;font-weight:600;padding:10px 0}
+.search input::placeholder{color:#8A8D91;font-weight:500}
+.query-img{display:flex;gap:10px;align-items:center;background:var(--soft);border-radius:12px;padding:10px}
+.query-img .img{width:70px;height:52px;flex-shrink:0}
+.res{display:flex;gap:10px;align-items:center;background:#fff;border:1.5px solid var(--fbl);border-radius:12px;padding:10px}
+.res.on{background:var(--okbg);border-color:var(--green)}
+.res .img{width:56px;height:44px;border-radius:6px;flex-shrink:0}
+.res .t{flex:1;font-size:11.5px;line-height:1.3;color:#3D352E;min-width:0}
+.res .t b{display:block;font-size:13px}
+.res .t i{font-style:normal;font-weight:700;color:var(--fbg)}
+.empty{background:var(--soft);border:1.5px dashed var(--line);border-radius:12px;padding:18px 14px;text-align:center;font-size:13px;color:var(--muted);line-height:1.45}
+
+/* D · Түлхүүр үгээр хайх */
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chips .chip{min-height:34px;padding:7px 12px;font-size:12px;background:var(--soft);border:1.5px solid var(--line);position:relative}
+.chips .chip::after{content:"";position:absolute;inset:-5px -2px}
+.chips .chip.on{background:var(--gold);border-color:var(--ink)}
+.sr{background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;border:1.5px solid var(--fbl);animation:pop 200ms var(--ease)}
+.sr.on{border-color:var(--green);background:#F2F9F3}
+.sr .src{font-size:11px;font-weight:700;color:var(--fbg)}
+.sr .h{font-size:14px;font-weight:700;color:#1a4fbf;line-height:1.3}
+.sr .s{font-size:12px;color:#3D352E;line-height:1.4}
+.sr .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:5px}
+.who{font-size:10.5px;font-weight:700;color:var(--muted)}
+.habit{background:var(--soft);border-radius:10px;padding:8px 11px;font-size:11.5px;line-height:1.4}
+
+/* E · Сэтгэгдэл */
+.cmt{display:flex;gap:8px;align-items:flex-start}
+.cmt>div:last-child{flex:1;min-width:0}
+.cav{width:32px;height:32px;border-radius:50%;flex-shrink:0;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cb{display:inline-block;background:var(--fbbg);border-radius:14px;padding:7px 11px;font-size:13px;line-height:1.35;color:#050505}
+.cb b{display:block;font-size:12px;font-weight:700}
+.cmt.picked .cb{outline:2px solid var(--green)}
+.cmt-acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.warn{font-size:11px;font-weight:700;color:var(--amber);padding-left:40px}
+
+/* F · Галаагийн тусламж */
+.lvl{border:1.5px solid var(--line);border-radius:14px;padding:11px 12px;display:flex;gap:10px;align-items:center;width:100%;min-height:56px;background:#fff}
+.lvl.next{border-color:var(--ink)}
+.lvl.used{opacity:.55}
+.lvl:disabled{opacity:.45}
+.lvl .n{width:32px;height:32px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.lvl .t{flex:1;font-size:12px;color:var(--muted);line-height:1.35}
+.lvl .t b{display:block;font-size:13.5px;color:var(--ink)}
+.cost{font-size:11px;font-weight:800;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.cost.free{background:var(--okbg);color:var(--green)}
+.cost.mid{background:var(--gold)}
+.cost.high{background:var(--badbg);color:var(--red)}
+
+/* G · Нотолгооны дэвтэр */
+.ev{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 11px;display:flex;gap:10px;align-items:flex-start;width:100%;min-height:52px;transition:box-shadow 120ms}
+.ev.sel{border-color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.ev .box{width:22px;height:22px;border-radius:6px;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.ev.sel .box{background:var(--ink);border-color:var(--ink)}
+.ev .t{flex:1;font-size:13px;line-height:1.35;min-width:0}
+.ev .t small{display:block;font-size:10.5px;font-weight:700;color:var(--muted);margin-top:3px}
+.str{font-size:10px;font-weight:800;border-radius:999px;padding:3px 8px;white-space:nowrap;flex-shrink:0}
+.str.strong{background:var(--okbg);color:var(--green)}
+.str.clue{background:var(--gold)}
+.verd{display:flex;gap:8px}
+.verd button{flex:1;text-align:center;border:2px solid var(--line);border-radius:14px;padding:9px 4px;min-height:58px;font-size:13px;font-weight:800;background:#fff;line-height:1.3}
+.verd button.on{color:#fff;border-color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.verd button.on.v-true{background:var(--green)}
+.verd button.on.v-false{background:var(--red)}
+.verd button.on.v-unverified{background:var(--amber)}
+.post-mini{display:flex;gap:10px;align-items:center;background:#fff;border-radius:12px;padding:8px;font-size:12px;line-height:1.35}
+.post-mini .img{width:60px;height:46px;flex-shrink:0}
+
+/* H · Үр дүн */
+.verdict{border:2px solid var(--green);background:var(--okbg);border-radius:18px;padding:16px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.verdict.wrong{border-color:var(--amber);background:var(--warnbg)}
+.verdict>b{font-size:19px;color:var(--green)}
+.verdict.wrong>b{color:var(--brown)}
+.stamp{display:inline-block;font-family:var(--serif);font-weight:900;font-size:26px;color:var(--red);border:3px solid var(--red);border-radius:6px;padding:4px 16px;letter-spacing:4px;transform:rotate(-4deg);animation:stamp 250ms cubic-bezier(.3,1.6,.5,1)}
+.stamp.true{color:var(--green);border-color:var(--green)}
+.stamp.unverified{color:var(--amber);border-color:var(--amber);font-size:21px;letter-spacing:2px}
+@keyframes stamp{from{transform:rotate(-4deg) scale(1.8);opacity:0}}
+.score{background:#fff;border-radius:14px;padding:4px 14px;border:1.5px solid var(--line)}
+.score div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;font-size:13px;border-bottom:1px dashed var(--line)}
+.score div:last-child{border:none;font-weight:800;font-size:15px}
+.score .neg{color:var(--red)}
+.missed{background:var(--warnbg);border:1.5px dashed var(--amber);border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.45}
+.answer{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
+.solo{align-self:center;background:var(--navy);color:var(--tape);font-size:11.5px}
+.tcard{background:var(--navy);border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:center;color:#fff;animation:pop 250ms var(--ease)}
+.tcard .ic{font-size:24px}
+.tcard small{display:block;font-size:10px;font-weight:800;color:var(--tape);letter-spacing:1px}
+.tcard .nm{font-family:var(--serif);font-weight:700;font-size:16px}
+.tcard p{font-size:12px;line-height:1.4;color:#C9D0DC;margin-top:3px}
+
+/* ============================================================ 7. ЭХЛЭЛ */
+.start{background:
+  radial-gradient(circle at 20% 10%,rgba(255,255,255,.55),transparent 45%),
+  repeating-linear-gradient(0deg,transparent 0 27px,rgba(139,106,69,.08) 27px 28px),var(--paper)}
+.start .body{gap:14px;padding:18px 20px calc(18px + var(--safe-b));align-items:stretch}
+.masthead{display:flex;justify-content:space-between;align-items:center;border-top:3px double var(--ink);border-bottom:1px solid var(--ink);padding:5px 0;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--ink)}
+.logo{text-align:center;position:relative}
+.logo h1{font-family:var(--serif);font-weight:900;font-size:44px;line-height:1;letter-spacing:-.5px}
+.logo h1 span{display:block;color:var(--red)}
+.logo .tape{position:absolute;top:-8px;right:18px;background:var(--tape);opacity:.9;padding:3px 10px;font-size:10px;font-weight:800;letter-spacing:1px;transform:rotate(6deg);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.motto{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.motto span{font-family:var(--serif);font-weight:700;font-size:14px;padding:3px 10px;border:1.5px solid var(--ink);border-radius:999px;background:#fff}
+.motto span:nth-child(2){background:var(--gold)}
+.motto span:nth-child(3){background:var(--ink);color:var(--paper)}
+.duo{position:relative;flex:none;height:clamp(190px,100vh - 520px,330px);height:clamp(190px,100dvh - 520px,330px);display:flex;justify-content:center;align-items:flex-end;gap:0}
+.duo::before{content:"";position:absolute;left:12%;right:12%;bottom:2px;height:26px;border-radius:50%;background:radial-gradient(rgba(42,36,32,.22),transparent 70%)}
+.duo img{position:relative;width:auto;max-width:48%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 4px 0 rgba(42,36,32,.08))}
+.duo .g{height:94%;margin-right:-6px}
+.duo .c{height:84%}
+.duo .say{position:absolute;top:2px;max-width:46%;background:#fff;border:1.5px solid var(--ink);border-radius:12px;padding:6px 9px;font-size:11.5px;font-weight:700;line-height:1.3;box-shadow:0 2px 0 var(--ink);z-index:2}
+.duo .say.l{left:0;border-bottom-left-radius:2px}
+.duo .say.r{right:0;border-bottom-right-radius:2px;top:44px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.input{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:0 14px;min-height:52px}
+.input input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:17px;font-weight:700;padding:12px 0}
+.input:focus-within{box-shadow:0 0 0 3px var(--tape)}
+.start .foot{margin-top:auto;text-align:center;font-size:10.5px;color:var(--muted);line-height:1.5}
+
+/* ============================================================ 8. АЖЛЫН ЯРИЛЦЛАГА / ШАЛГАЛТ */
+.clip{background:#fff;border:1.5px solid var(--line);border-radius:4px;padding:14px;box-shadow:0 3px 0 var(--line);position:relative}
+.clip::before{content:"";position:absolute;top:-9px;left:50%;width:70px;height:18px;transform:translateX(-50%) rotate(-2deg);background:var(--tape);opacity:.85}
+.clip .q{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.35}
+.opt3{display:flex;gap:8px}
+.opt3 button{flex:1;min-height:56px;border:2px solid var(--ink);border-radius:14px;background:#fff;font-size:13px;font-weight:800;text-align:center;line-height:1.25;padding:6px 4px}
+.opt3 button.on{background:var(--ink);color:#fff;box-shadow:0 3px 0 #000}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--ink);width:22px;border-radius:9px}
+
+/* ============================================================ 9. ОРШИЛ ЯРИА (visual novel) */
+.vn-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:
+  linear-gradient(transparent 72%,#8B6A45 72% 74%,#A9875F 74%),
+  linear-gradient(90deg,#E9DFC9 0 50%,#E2D6BC 50%) 0 0/60px 100%}
+.vn-scene .window{position:absolute;top:28px;left:22px;width:120px;height:96px;border:6px solid #8B6A45;background:linear-gradient(#C9D6DF,#E7ECEE);box-shadow:inset 0 0 0 2px #fff}
+.vn-scene .window::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 48%,#8B6A45 48% 52%,transparent 52%),linear-gradient(transparent 48%,#8B6A45 48% 52%,transparent 52%)}
+.vn-scene .sign{position:absolute;top:34px;right:20px;background:var(--navy);color:var(--tape);font-family:var(--serif);font-weight:900;font-size:13px;letter-spacing:2px;padding:6px 10px;transform:rotate(3deg)}
+.vn-scene .board{position:absolute;top:84px;right:26px;width:92px;height:66px;background:#C9A574;border:4px solid #8B6A45}
+.vn-scene .board::before,.vn-scene .board::after{content:"";position:absolute;width:30px;height:24px;background:#fff;top:8px;left:10px;transform:rotate(-5deg);box-shadow:40px 14px 0 #FFF4B8}
+.vn-scene .board::after{width:6px;height:6px;border-radius:50%;background:var(--red);top:6px;left:22px;box-shadow:40px 14px 0 var(--red)}
+.vn-chars{position:absolute;left:0;right:0;bottom:4px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 14px}
+.vn-chars img{width:auto;transition:opacity var(--fast),transform var(--fast)}
+.vn-chars .g{height:min(300px,46vh)}
+.vn-chars .c{height:min(250px,40vh)}
+.vn-chars img.quiet{opacity:.5;transform:scale(.96)}
+.vn-box{position:relative;background:#fff;border-top:3px solid var(--ink);padding:24px 18px calc(16px + var(--safe-b));display:flex;flex-direction:column;gap:12px;min-height:200px;flex-shrink:0}
+.vn-name{position:absolute;top:-16px;left:16px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:800;letter-spacing:1.5px;padding:6px 12px;border-radius:8px}
+.vn-name.me{background:var(--navy)}
+.vn-text{font-size:16px;line-height:1.5;flex:1}
+.vn-acts{display:flex;gap:10px;align-items:center}
+.vn-acts .btn{flex:1}
+
+/* ============================================================ 10. ӨДРИЙН ДААЛГАВАР */
+.folder{position:relative;background:#E6C88E;border-radius:4px 14px 14px 14px;padding:18px 14px 14px;margin-top:18px;box-shadow:0 4px 0 #B8965A;display:flex;flex-direction:column;gap:12px}
+.folder::before{content:attr(data-tab);position:absolute;top:-22px;left:0;background:#E6C88E;border-radius:10px 10px 0 0;padding:4px 14px 2px;font-size:11px;font-weight:900;letter-spacing:1.5px}
+.folder h2{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.15}
+.folder .sub{font-size:12px;font-weight:700;color:#6B5233}
+.note{position:relative;background:#FFFBEA;border-radius:2px;padding:16px 12px 12px;font-size:13.5px;line-height:1.5;box-shadow:0 2px 6px rgba(0,0,0,.12);transform:rotate(-.6deg)}
+.note::before{content:"";position:absolute;top:-8px;left:22px;width:60px;height:16px;background:var(--tape);opacity:.85;transform:rotate(-4deg)}
+.note small{display:block;margin-top:6px;font-size:10.5px;font-weight:700;color:var(--muted)}
+.tasks{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tasks li{background:rgba(255,255,255,.7);border-radius:10px;padding:9px 11px;font-size:13px;font-weight:600}
+
+/* ============================================================ 11. ӨДРИЙН ДҮН (сонины нүүр) */
+.news{background:#FBF7EE;border:1px solid var(--ink);padding:14px;box-shadow:4px 4px 0 var(--ink);display:flex;flex-direction:column;gap:10px}
+.news .mast{text-align:center;border-bottom:3px double var(--ink);padding-bottom:6px}
+.news .mast h2{font-family:var(--serif);font-weight:900;font-size:34px;letter-spacing:3px;line-height:1}
+.news .mast small{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-top:4px}
+.news .head{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.2}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{border:1.5px solid var(--ink);padding:9px 10px;background:#fff}
+.stat b{display:block;font-family:var(--serif);font-size:26px;line-height:1.1}
+.stat span{font-size:11px;font-weight:700;color:var(--muted)}
+
+/* ============================================================ 12. ЭРГЭЛТ (Messenger) */
+.msgr{background:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif}
+.msgr-top{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--fbl);flex-shrink:0}
+.msgr-top .nm{font-size:15px;font-weight:700}
+.msgr-top small{display:block;font-size:11.5px;color:var(--red);font-weight:600}
+.msgr-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:6px}
+.msgr-time{text-align:center;font-size:11px;color:var(--fbg);font-weight:600;margin:4px 0 6px}
+.msg{max-width:78%;background:var(--fbl);color:#050505;border-radius:18px;padding:8px 12px;font-size:14.5px;line-height:1.35;align-self:flex-start;animation:pop 200ms var(--ease)}
+.msg.me{background:#0866FF;color:#fff;align-self:flex-end}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.flags span{background:var(--badbg);color:var(--red);border:1.5px dashed var(--red);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800}
+.choices{display:flex;flex-direction:column;gap:10px;padding:12px 14px calc(16px + var(--safe-b));background:var(--paper);border-top:1.5px solid var(--line);flex-shrink:0}
+
+/* ============================================================ 13. ТӨГСГӨЛ (үнэмлэх) */
+.idcard{position:relative;background:linear-gradient(135deg,#FBF7EE,#EFE4CC);border:2px solid var(--ink);border-radius:16px;padding:14px;box-shadow:0 5px 0 var(--ink);overflow:hidden}
+.idcard .top{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:8px;margin-bottom:10px;font-size:10px;font-weight:900;letter-spacing:1.5px}
+.idcard .row{display:flex;gap:12px;align-items:center}
+.idcard .photo{width:84px;height:100px;object-fit:cover;object-position:50% 4%;background:#D2DCEC;border:2px solid var(--ink);border-radius:8px;flex-shrink:0}
+.idcard dl{flex:1;display:grid;grid-template-columns:auto 1fr;gap:3px 8px;font-size:12px}
+.idcard dt{color:var(--muted);font-weight:700}
+.idcard dd{font-weight:800}
+.idcard .nick{font-family:var(--serif);font-size:22px;font-weight:900;line-height:1.1;margin-bottom:6px}
+.idcard .stamp{position:absolute;right:8px;bottom:6px;font-size:16px;letter-spacing:2px;padding:2px 10px;color:var(--green);border-color:var(--green);transform:rotate(-12deg);opacity:.85;background:rgba(255,255,255,.4)}
+.cards{display:flex;gap:6px;flex-wrap:wrap}
+.cards span{background:var(--navy);color:#fff;border-radius:8px;padding:5px 9px;font-size:11px;font-weight:700}
+.compare{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.meter{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
+.meter .track{flex:1;height:10px;border-radius:9px;background:var(--paper2);overflow:hidden}
+.meter .fill{height:100%;background:var(--ink);border-radius:9px;transition:width 250ms var(--ease)}
+.meter .fill.after{background:var(--green)}
+
+/* ============================================================ 14. ТОГЛООМЫН ХӨДӨЛГҮҮРИЙН НЭМЭЛТ */
+.view.still,.view.still .stamp,.view.still .tcard,.view.still .hint.pop .bubble{animation:none}
+.hud .right{display:flex;gap:6px;align-items:center}
+.stage{position:relative;z-index:1;flex:1;min-height:0;display:flex;flex-direction:column}
+.stage>.body{flex:1}
+[hidden]{display:none!important}
+.pimg-wrap{padding:0 10px}
+.pimg{display:block;width:100%}
+.pimg .img{height:180px;border-radius:8px}
+.ph.hot{border-radius:10px}
+.plink{margin:0;border-radius:0}
+.react .cnt.hot{color:#050505;font-weight:700}
+.flash{animation:flashB 400ms ease-in-out 5!important}
+@keyframes flashB{50%{box-shadow:0 0 0 5px var(--tape);background-color:#FFF4B8}}
+.hint.tipped .bubble{background:#FFF9E3;border-color:var(--tape)}
+.go{flex-shrink:0;font-size:13px;font-weight:800;color:#fff;background:var(--ink);border-radius:999px;padding:7px 12px;min-height:34px}
+.search input::-webkit-search-cancel-button{display:none}
+.urlbar{display:flex;gap:6px;align-items:center;background:var(--fbbg);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600;color:var(--fbg);overflow-wrap:anywhere}
+.ev .pin{align-self:center}
+.thought .bubble{border-style:dashed;border-radius:14px;background:#F5F7FB}
+.galaa-real{display:flex;gap:12px;align-items:flex-end}
+.galaa-real img{width:84px;height:auto;flex-shrink:0;animation:pop 250ms var(--ease)}
+.galaa-real>div{flex:1}
+.msgr .msgr-body .hint{margin-top:10px}
+.verdict .stamp{font-size:26px}
+.verdict .stamp.unverified{font-size:20px}
+
+/* ============================================================ 15. ХӨДӨЛГӨӨН ХЯЗГААРЛАХ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}
+}

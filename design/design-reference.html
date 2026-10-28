@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Баримт Анчин v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F3ECDD;--paper2:#E9DFC9;--ink:#2A2420;--muted:#7A6E62;--line:#DCCFB8;--red:#B8342A;--green:#3E7B4F;--amber:#C98A1B;--navy:#1F2A3D;--brown:#8B6A45;--tape:#F2D16B;--fbg:#65676B;--fbl:#E4E6EB;--fbbg:#F0F2F5;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#CFC6B5;font-family:Inter,Arial,sans-serif;color:var(--ink);padding:40px 24px}
+h1{font-family:"Noto Serif",serif;font-weight:900;font-size:34px}
+.lead{color:#5a5046;font-size:15px;margin:8px 0 24px;max-width:900px;line-height:1.5}
+.flow{background:#fff;border-radius:24px;padding:24px;margin-bottom:48px;max-width:1240px}
+.steps{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.step{width:200px;min-height:110px;border:1.5px solid var(--ink);border-radius:16px;padding:12px}
+.step b{display:block;font-size:16px;margin-bottom:4px}.step span{font-size:12.5px;line-height:1.4;color:#3D352E}
+.arrow{font-size:22px;font-weight:800;color:var(--muted)}
+.loop{display:flex;gap:12px;align-items:center;border:1.5px dashed var(--brown);background:#F6F1E4;border-radius:14px;padding:12px 16px;font-size:13px;line-height:1.45}
+.loop img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 8%;background:#EBDBC2}
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.rules div{background:var(--paper);border-radius:14px;padding:12px;font-size:12.5px;line-height:1.4}.rules b{display:block;font-size:13.5px;margin-bottom:4px}
+.row{display:flex;gap:48px;flex-wrap:wrap;align-items:flex-start}
+.cap{width:390px}.cap h3{font-family:"Noto Serif",serif;font-size:21px;margin-bottom:4px}.cap p{font-size:13px;color:#5a5046;line-height:1.4;margin-bottom:14px;min-height:54px}
+.screen{width:390px;height:844px;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 12px 32px rgba(0,0,0,.18);background:#EDE4D2}
+.status{display:flex;justify-content:space-between;padding:16px 28px 8px;font-size:14px;font-weight:600}
+.hud{display:flex;justify-content:space-between;align-items:center;padding:4px 16px 8px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;white-space:nowrap}
+.dark{background:var(--ink);color:var(--paper);letter-spacing:1px}.gold{background:#FFF4B8;font-size:12px}
+.body{flex:1;display:flex;flex-direction:column;gap:10px;padding:2px 14px 12px;min-height:0}
+.hint{display:flex;gap:10px;align-items:flex-start}
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#EBDBC2}
+.av.g{object-position:50% 6%}.av.c{object-position:50% 4%;background:#D2DCEC}
+.bubble{background:#fff;border:1.5px solid var(--line);border-radius:4px 14px 14px 14px;padding:8px 11px;font-size:12.5px;line-height:1.4;flex:1}
+.bubble small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1px;color:var(--brown);margin-bottom:2px}
+.post{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.ph{display:flex;gap:9px;align-items:center}
+.pav{width:38px;height:38px;border-radius:50%;background:#5B6B80;color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pn{font-size:14.5px;font-weight:700;color:#050505}.pm{font-size:12px;color:var(--fbg)}
+.ptxt{padding:0 12px;font-size:14.5px;line-height:1.38;color:#050505}
+.smog{position:relative;overflow:hidden;background:linear-gradient(#CFC4AF,#7D7366)}
+.smog::before{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:
+ linear-gradient(#3F3A35bf,#3F3A35bf) 0 100%/40px 35% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 34px 100%/28px 55% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 66px 100%/46px 30% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 118px 100%/22px 65% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 144px 100%/40px 42% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 188px 100%/30px 58% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 222px 100%/52px 34% no-repeat,linear-gradient(#3F3A35bf,#3F3A35bf) 278px 100%/24px 50% no-repeat,
+ linear-gradient(#3F3A35bf,#3F3A35bf) 306px 100%/40px 40% no-repeat;}
+.smog::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(217,209,194,.15),rgba(191,179,158,.55))}
+.hot{outline:2px dashed var(--red);outline-offset:2px;border-radius:10px;position:relative}
+.tag{position:absolute;background:var(--red);color:#fff;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 9px;z-index:2;white-space:nowrap}
+.react{display:flex;justify-content:space-between;align-items:center;padding:0 10px;font-size:12.5px;color:var(--fbg)}
+.acts{display:flex;justify-content:space-between;border-top:1px solid var(--fbl);padding:8px 22px 10px;font-size:12.5px;font-weight:600;color:var(--fbg)}
+.viral{display:flex;justify-content:space-between;background:#FBE3E0;color:var(--red);font-weight:700;font-size:11.5px;border-radius:10px;padding:7px 12px}
+.spacer{flex:1}
+.bar{background:#fff;border-top:1.5px solid var(--line);display:flex;gap:8px;align-items:center;padding:10px 12px 24px}
+.tool{position:relative;background:#F6F1E4;border-radius:12px;padding:6px 8px;display:flex;flex-direction:column;align-items:center;font-size:10px;font-weight:700;gap:1px;min-width:56px}
+.tool.on{background:#FFF4B8;outline:1.5px solid var(--ink)}
+.tool .ic{font-size:17px;line-height:20px}.tool img{width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:50% 6%;background:#EBDBC2}
+.badge{position:absolute;top:-5px;right:-4px;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;border-radius:999px;padding:1px 6px}
+.judge{flex:1;border-radius:12px;padding:13px 8px;text-align:center;font-size:14px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 3px 0 #000}
+.judge.off{background:#D9D0C0;color:#8A8174;box-shadow:none}
+.toast{position:absolute;left:50%;transform:translateX(-50%);bottom:112px;background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;border-radius:12px;padding:10px 14px;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.pin{border:1.5px solid var(--ink);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800;background:#fff;white-space:nowrap}
+.pin.on{background:var(--green);border-color:var(--green);color:#fff}
+.fact{display:flex;gap:8px;align-items:center;background:#fff;border-radius:10px;padding:9px 10px}
+.fact.on{background:#E4F1E6;outline:1.5px solid var(--green)}
+.fact div{flex:1}.fact small{display:block;font-size:11px;font-weight:600;color:var(--fbg)}.fact b{font-size:13.5px;color:#050505}
+.res{display:flex;gap:10px;align-items:center;background:#fff;border:1.5px solid var(--fbl);border-radius:12px;padding:10px}
+.res.on{background:#E4F1E6;border-color:var(--green)}
+.res .th{width:56px;height:44px;border-radius:6px;flex-shrink:0}
+.res div.t{flex:1;font-size:11.5px;line-height:1.3;color:#3D352E}.res div.t b{display:block;font-size:13px}.res div.t i{font-style:normal;font-weight:700;color:var(--fbg)}
+.search{display:flex;align-items:center;gap:8px;background:var(--fbbg);border-radius:999px;padding:10px 14px;font-size:14px;font-weight:600}
+.cursor{display:inline-block;width:2px;height:16px;background:var(--red);vertical-align:middle;margin-left:1px}
+.tabs{display:flex;gap:6px}.tabs span{font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.tabs span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sr{background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;border:1.5px solid var(--fbl)}
+.sr .src{font-size:11px;font-weight:700;color:var(--fbg)}.sr .h{font-size:14px;font-weight:700;color:#1a4fbf}.sr .s{font-size:12px;color:#3D352E;line-height:1.35}
+.sr .foot{display:flex;justify-content:space-between;align-items:center;margin-top:3px}
+.who{font-size:10.5px;font-weight:700;color:var(--muted)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:10px 16px 28px;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:9px}
+.grab{width:40px;height:5px;border-radius:9px;background:#D4D4D4;margin:0 auto 4px}
+.dim{position:absolute;inset:0;background:rgba(20,18,16,.45)}
+.cmt{display:flex;gap:8px;align-items:flex-start}
+.cav{width:30px;height:30px;border-radius:50%;flex-shrink:0;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cb{background:var(--fbbg);border-radius:14px;padding:7px 11px;font-size:13px;line-height:1.35;color:#050505}
+.cb b{display:block;font-size:12px}
+.cmt.bot .cb{outline:1.5px dashed var(--amber)}
+.lvl{border:1.5px solid var(--line);border-radius:14px;padding:11px 12px;display:flex;gap:10px;align-items:center}
+.lvl .n{width:30px;height:30px;border-radius:9px;background:#F6F1E4;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.lvl div.t{flex:1;font-size:12px;color:var(--muted);line-height:1.35}.lvl div.t b{display:block;font-size:13.5px;color:var(--ink)}
+.cost{font-size:11px;font-weight:800;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.ev{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 11px;display:flex;gap:10px;align-items:flex-start}
+.ev.sel{border-color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.ev .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.ev.sel .box{background:var(--ink);border-color:var(--ink)}
+.ev div.t{flex:1;font-size:13px;line-height:1.35}.ev div.t small{display:block;font-size:10.5px;font-weight:700;color:var(--muted);margin-top:3px}
+.str{font-size:10px;font-weight:800;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.verd{display:flex;gap:8px}.verd div{flex:1;text-align:center;border:2px solid var(--line);border-radius:14px;padding:9px 4px;font-size:13px;font-weight:800;background:#fff;line-height:1.3}
+.verd div.on{background:var(--red);color:#fff;border-color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.btn{border-radius:14px;padding:15px;text-align:center;font-weight:700;font-size:15.5px;background:var(--ink);color:#fff;box-shadow:0 4px 0 #000}
+.score{background:#fff;border-radius:14px;padding:4px 14px;border:1.5px solid var(--line)}
+.score div{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px dashed var(--line)}
+.score div:last-child{border:none;font-weight:800;font-size:15px}
+.stamp{font-family:"Noto Serif",serif;font-weight:900;font-size:26px;color:var(--red);border:3px solid var(--red);border-radius:6px;padding:4px 16px;letter-spacing:4px;transform:rotate(-4deg)}
+</style>
+</head>
+<body>
+<h1>Баримт Анчин · v3 Мөрдөн шалгах (хайлт)</h1>
+<p class="lead">v2-ын 04–05 дэлгэцийг орлоно. Тоглогч бэлэн ул мөр нээхийн оронд Facebook пост дээр өөрөө дарж, хайлт хийж, нотолгоо цуглуулна. Гацвал Галаа ахлахаас 3 түвшний тусламж авна.</p>
+
+<div class="flow">
+ <h1 style="font-size:24px">Мөрдөн шалгах цикл: “Ангилах биш, ХАЙЖ олох”</h1>
+ <div class="steps">
+  <div class="step" style="background:var(--paper)"><b>① Пост</b><span>Facebook пост лентэд гарна, тархсаар байна</span></div><div class="arrow">→</div>
+  <div class="step" style="background:var(--tape)"><b>② Судлах</b><span>Хуудас · зураг · сэтгэгдэл дээр дарах, 🔎 түлхүүр үгээр хайх</span></div><div class="arrow">→</div>
+  <div class="step" style="background:#DDEBFF"><b>③ 📌 Цуглуулах</b><span>Олсон баримтаа нотолгооны дэвтэрт хадгалах (3 хүртэл)</span></div><div class="arrow">→</div>
+  <div class="step" style="background:#FFD9D2"><b>④ ⚖ Дүгнэх</b><span>Үнэн / Худал / Баталгаагүй + гол нотолгоогоо сонгох</span></div><div class="arrow">→</div>
+  <div class="step" style="background:#DCEFE0"><b>⑤ Үнэлгээ</b><span>Дүгнэлт + нотолгооны чанар + хайлтын арга = оноо, карт</span></div>
+ </div>
+ <div class="loop"><img src="../assets/galaa.png" alt=""><div><b>🦢 Галаагийн тусламж (②–③ шатанд):</b> 1) Чиглэл: үнэгүй · 2) Аргыг заах: −2 оноо · 3) Нотолгоог зааж өгөх: −5 оноо. Өдөрт 3 тасалбар. 45 секунд юу ч хийхгүй бол Галаа өөрөө сануулна.</div></div>
+ <div class="rules">
+  <div><b>1-р өдөр (сургалт)</b>Хайлт, дарах үйлдэл хязгааргүй. Галаа автоматаар чиглүүлнэ.</div>
+  <div><b>2-р өдөр (бие даах)</b>Пост бүрт 6 алхам ⏱ (дарах / хайх бүр = 1 алхам). Цаг шахуу байдлыг дуурайна.</div>
+  <div><b>Дүгнэх нөхцөл</b>Дор хаяж 1 нотолгоо хадгалсан байх. Таамаглаж дүгнэх боломжгүй.</div>
+  <div><b>Нотолгооны хүч</b>🟢 Хүчтэй: албан эх сурвалж, зургийн огноо · 🟡 Сэжүүр: сэтгэгдэл, хуудасны шинж</div>
+ </div>
+</div>
+
+<div class="row">
+
+<!-- A -->
+<div class="cap"><h3>A · Пост: дарж судлах</h3><p>Хуудасны нэр, зураг, сэтгэгдэл бүгд дарагдана (улаан тасархай хүрээ). Галаа эхний удаад хаашаа дарахыг заана.</p>
+<div class="screen">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div class="hud"><span class="chip dark">ӨДӨР 1</span><b style="font-size:12px;color:var(--muted)">Пост 3 / 4</b><span class="chip gold">⭐ 20</span></div>
+ <div class="body">
+  <div class="hint"><img class="av g" src="../assets/galaa.png"><div class="bubble"><small>ГАЛАА АХЛАХ</small>Энэ постыг <b>өөрөө судал!</b> Улаан тасархай хүрээтэй хэсгүүд дээр дарж болно. Мөн 🔎-ээр хайлт хийж болно.</div></div>
+  <div class="post">
+   <div style="padding:0 10px"><div class="ph hot" style="padding:4px 6px"><div class="pav">УБШ</div><div style="flex:1"><div class="pn">УБ Шуурхай Мэдээ</div><div class="pm">2 цагийн өмнө · 🌐</div></div><span class="tag" style="right:6px;top:-11px">👆 Хуудас</span></div></div>
+   <div class="ptxt">😱 ӨНӨӨ ӨГЛӨӨ УБ!! Ийм утаан дунд хүүхдээ яаж өсгөх вэ?! Хуваалцаад бүгдэд мэдүүлээрэй 👇👇</div>
+   <div style="padding:0 10px"><div class="smog hot" style="height:150px;border-radius:8px"><span class="tag" style="right:8px;top:8px">👆 Зургаар хайх</span></div></div>
+   <div class="react"><span>😮😢 2.4K</span><span class="hot" style="padding:4px 8px;color:#050505;font-weight:700">💬 318 сэтгэгдэл</span></div>
+   <div class="acts"><span>👍 Таалагдсан</span><span>💬 Сэтгэгдэл</span><span>↗ Хуваалцах</span></div>
+  </div>
+  <div class="viral"><span>🔥 Чамайг судалж байх хооронд тархсаар...</span><span>1.1K → 1.2K</span></div>
+  <div class="spacer"></div>
+  <div style="background:#F6F1E4;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:11.5px;font-weight:600;color:var(--muted);text-align:center">🔒 Дүгнэхийн тулд дор хаяж 1 нотолгоо хадгалах хэрэгтэй</div>
+ </div>
+ <div class="bar"><div class="tool"><span class="ic">🔎</span>Хайх</div><div class="tool"><span class="ic">📒</span>Нотолгоо<span class="badge">0/3</span></div><div class="tool"><img src="../assets/galaa.png">Галаа<span class="badge">3</span></div><div class="judge off">⚖ Дүгнэх 🔒</div></div>
+</div></div>
+
+<!-- B -->
+<div class="cap"><h3>B · Хуудсыг судлах</h3><p>Хуудасны нэр дээр дарахад Facebook-ийн “Хуудасны ил тод байдал” шиг мэдээлэл гарна. Чухал баримтаа 📌 хадгална.</p>
+<div class="screen" style="background:#fff">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div style="display:flex;gap:10px;align-items:center;padding:2px 14px 8px"><span style="font-size:26px;font-weight:600">‹</span><b style="flex:1;font-size:16px">УБ Шуурхай Мэдээ</b><span>🔍</span></div>
+ <div style="height:92px;background:linear-gradient(90deg,#FF5A3C,#FFB23C)"></div>
+ <div style="display:flex;gap:12px;align-items:center;padding:12px 16px 6px"><div class="pav" style="width:62px;height:62px;font-size:15px;border:3px solid #fff">УБШ</div><div><div style="font-size:19px;font-weight:800">УБ Шуурхай Мэдээ</div><div class="pm">Мэдээ, хэвлэл · 1.2K дагагч · 12 пост</div></div></div>
+ <div class="body" style="padding-top:8px">
+  <div style="background:var(--fbbg);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px">
+   <b style="font-size:14px">ⓘ Хуудасны ил тод байдал</b>
+   <div class="fact on"><div><small>Үүсгэсэн огноо</small><b>5 хоногийн өмнө</b></div><span class="pin on">✓ Хадгалсан</span></div>
+   <div class="fact"><div><small>Нэрийн түүх</small><b>2 удаа сольсон · өмнө нь “Хямдрал Онлайн 24”</b></div><span class="pin">📌 Хадгалах</span></div>
+   <div class="fact"><div><small>Удирдагчийн байршил</small><b>Тодорхойгүй</b></div><span class="pin">📌 Хадгалах</span></div>
+  </div>
+  <b style="font-size:14px">Сүүлийн постууд</b>
+  <div style="display:flex;gap:8px">
+   <div style="flex:1;background:var(--fbbg);border-radius:10px;padding:8px;font-size:11px;font-weight:700;height:64px">😱 ЯАРАЛТАЙ! Банкууд хаагдана!</div>
+   <div style="flex:1;background:var(--fbbg);border-radius:10px;padding:8px;font-size:11px;font-weight:700;height:64px">🤯 Эмч нар нуудаг 1 арга</div>
+   <div style="flex:1;background:var(--fbbg);border-radius:10px;padding:8px;font-size:11px;font-weight:700;height:64px">💰 iPhone 99% хямдрал!</div>
+  </div>
+  <div class="hint"><img class="av g" src="../assets/galaa.png"><div class="bubble"><small>ГАЛАА АХЛАХ</small>Мэдээний хуудас <b>5 хоногийн өмнө</b> үүссэн, өмнө нь <b>хямдралын хуудас</b> байсан гэнэ ээ... Сэжигтэй л байна.</div></div>
+ </div>
+ <div class="toast">📌 Нотолгоо хадгалагдлаа · 1/3 &nbsp;🟡 Сэжүүр</div>
+ <div class="bar"><div class="tool"><span class="ic">🔎</span>Хайх</div><div class="tool on"><span class="ic">📒</span>Нотолгоо<span class="badge">1/3</span></div><div class="tool"><img src="../assets/galaa.png">Галаа<span class="badge">3</span></div><div class="judge">⚖ Дүгнэх</div></div>
+</div></div>
+
+<!-- C -->
+<div class="cap"><h3>C · Зургаар хайх</h3><p>Зураг дээр дарахад тоглоом доторх “зургаар хайх” нээгдэнэ. Хамгийн эртний огноог олох нь гол ур чадвар (Google Lens, TinEye-г дуурайна).</p>
+<div class="screen" style="background:#fff">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div style="display:flex;gap:10px;align-items:center;padding:2px 14px 10px"><span style="font-size:26px;font-weight:600">‹</span><div class="search" style="flex:1;font-size:13px">🖼 Зургаар хайх · Мөрдөгчийн хайлт</div></div>
+ <div class="body">
+  <div style="display:flex;gap:10px;align-items:center;background:#F6F1E4;border-radius:12px;padding:10px"><div class="smog" style="width:70px;height:52px;border-radius:8px"></div><div><div style="font-size:11px;font-weight:600;color:var(--muted)">Хайж буй зураг</div><b style="font-size:13px">УБ Шуурхай Мэдээ-ний постоос</b></div></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:14px">Ижил зураг 3 газар олдлоо</b><span class="chip gold" style="font-size:10.5px">⇅ Хамгийн эртнийх эхэнд</span></div>
+  <div class="res on"><div class="smog th"></div><div class="t"><b style="color:var(--green)">2019.12.04</b><i>Өдрийн Сонин (зохиомол)</i><br>“Өвлийн утаа оргилдоо хүрлээ”</div><span class="pin on">✓</span></div>
+  <div class="res"><div class="smog th"></div><div class="t"><b>2021.01.11</b><i>Хувийн блог</i><br>“Манай хотын өвөл” цуглуулга</div><span class="pin">📌</span></div>
+  <div class="res"><div class="smog th"></div><div class="t"><b>Өнөөдөр 07:12</b><i>УБ Шуурхай Мэдээ</i><br>“ӨНӨӨ ӨГЛӨӨ УБ!!”</div><span class="pin">📌</span></div>
+  <div class="hint"><img class="av g" src="../assets/galaa.png"><div class="bubble"><small>ГАЛАА АХЛАХ</small>Тэгэхээр зураг <b>5 жилийн өмнөх</b> юм байна. Гэхдээ өнөөдөр утаа үнэхээр их байгаа юу? Үүнийг <b>бас шалгах</b> хэрэгтэй.</div></div>
+ </div>
+ <div class="toast">📌 Нотолгоо хадгалагдлаа · 2/3 &nbsp;🟢 Хүчтэй</div>
+ <div class="bar"><div class="tool"><span class="ic">🔎</span>Хайх</div><div class="tool"><span class="ic">📒</span>Нотолгоо<span class="badge">2/3</span></div><div class="tool"><img src="../assets/galaa.png">Галаа<span class="badge">3</span></div><div class="judge">⚖ Дүгнэх</div></div>
+</div></div>
+
+<!-- D -->
+<div class="cap"><h3>D · Түлхүүр үгээр хайх</h3><p>🔎 дарахад тоглоом доторх хайлт нээгдэнэ. Тоглогч өөрөө бичих эсвэл санал болгосон түлхүүр үг сонгоно. Аль эх сурвалж найдвартайг өөрөө шийднэ.</p>
+<div class="screen" style="background:#fff">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div style="display:flex;gap:10px;align-items:center;padding:2px 14px 8px"><span style="font-size:26px;font-weight:600">‹</span><div class="search" style="flex:1">🔎 агаарын чанар өнөөдөр УБ<span class="cursor"></span></div></div>
+ <div class="body" style="gap:9px">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="font-size:11px;font-weight:700;color:var(--muted)">САНАЛ:</span><span class="chip" style="background:#FFF4B8">агаарын чанар өнөөдөр</span><span class="chip" style="background:#F6F1E4">утааны зураг 2019</span><span class="chip" style="background:#F6F1E4">баримт шалгах</span></div>
+  <div class="tabs"><span class="on">Бүгд</span><span>Мэдээ</span><span>Зураг</span><span>Баримт шалгалт</span></div>
+  <div class="sr" style="border-color:var(--green);background:#F2F9F3"><span class="src">🏛 Хотын Агаарын Чанарын Алба · 1 цагийн өмнө</span><span class="h">Өнөөдрийн хэмжилт: эрүүл мэндэд хортой түвшин</span><span class="s">Баянзүрх, Сонгинохайрхан дүүрэгт PM2.5 хэвийн хэмжээнээс 6 дахин их...</span><div class="foot"><span class="who">ⓘ Хэн бичсэн? Төрийн байгууллага</span><span class="pin on">✓ Хадгалсан</span></div></div>
+  <div class="sr"><span class="src">✅ Баримт Шалгах Төв · Өчигдөр</span><span class="h">Хуучин утааны зургууд дахин тархаж эхэллээ</span><span class="s">Өвөл бүр 2019 оны зургууд “өнөөдөр” гэсэн тайлбартай гардаг...</span><div class="foot"><span class="who">ⓘ Хэн бичсэн? Хараат бус байгууллага</span><span class="pin">📌 Хадгалах</span></div></div>
+  <div class="sr"><span class="src">📝 “Үнэний дуу” блог · 3 өдрийн өмнө</span><span class="h">УТАА БОЛ ХУЙВАЛДАА!! Тэд нуугаад байна</span><span class="s">Эх сурвалж дурдаагүй, зохиогч тодорхойгүй...</span><div class="foot"><span class="who">ⓘ Хэн бичсэн? Тодорхойгүй</span><span class="pin">📌 Хадгалах</span></div></div>
+  <div style="background:#F6F1E4;border-radius:10px;padding:8px 11px;font-size:11.5px;line-height:1.4">💡 <b>Мөрдөгчийн дадал:</b> Нэг эх сурвалжид бүү итгэ. 2-оос дээш газраас шалга.</div>
+ </div>
+ <div class="bar"><div class="tool on"><span class="ic">🔎</span>Хайх</div><div class="tool"><span class="ic">📒</span>Нотолгоо<span class="badge">3/3</span></div><div class="tool"><img src="../assets/galaa.png">Галаа<span class="badge">3</span></div><div class="judge">⚖ Дүгнэх</div></div>
+</div></div>
+
+<!-- E -->
+<div class="cap"><h3>E · Сэтгэгдлийг унших</h3><p>Сэтгэгдэл бол сэжүүр, нотолгоо биш. Ижил текст давтдаг бот хаягууд, зураг хуучин гэж бичсэн хүнийг олж, түүнийгээ хайлтаар батална.</p>
+<div class="screen">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div class="body"><div class="post" style="opacity:.9"><div class="ph" style="padding:0 12px"><div class="pav">УБШ</div><div><div class="pn">УБ Шуурхай Мэдээ</div><div class="pm">2 цагийн өмнө</div></div></div><div class="ptxt">😱 ӨНӨӨ ӨГЛӨӨ УБ!! Ийм утаан дунд...</div><div class="smog" style="height:120px"></div></div></div>
+ <div class="dim"></div>
+ <div class="sheet" style="height:610px">
+  <div class="grab"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px">Сэтгэгдэл · 318</b><span style="font-size:12px;font-weight:700;color:var(--fbg)">Хамгийн хамааралтай ▾</span></div>
+  <div class="cmt bot"><div class="cav" style="background:#8E99A8">Б</div><div><div class="cb"><b>Bat_8823</b>Хуваалцлаа!! Бүгд мэдэх ёстой 🙏🙏</div></div></div>
+  <div class="cmt bot"><div class="cav" style="background:#A08E8E">О</div><div><div class="cb"><b>Ochir_2024x</b>Хуваалцлаа!! Бүгд мэдэх ёстой 🙏🙏</div></div></div>
+  <div class="cmt bot"><div class="cav" style="background:#8EA095">Н</div><div><div class="cb"><b>Naraa_5521</b>Хуваалцлаа!! Бүгд мэдэх ёстой 🙏🙏</div></div></div>
+  <div style="font-size:11px;font-weight:700;color:var(--amber);padding-left:38px">⚠ Ижил текст, нэргүй шинэ хаягууд → бот байж магадгүй</div>
+  <div class="cmt"><div class="cav" style="background:#7A5C8E">С</div><div style="flex:1"><div class="cb" style="outline:2px solid var(--green)"><b>Сараа Д.</b>Энэ 2019 оны зураг шүү дээ. Би тэр үед Өдрийн Сонинд харсан</div><div style="display:flex;gap:6px;margin-top:6px"><span class="pin">📌 Сэжүүр болгох</span><span class="pin" style="background:#FFF4B8">🔎 Хайж батлах</span></div></div></div>
+  <div class="cmt"><div class="cav" style="background:#5C7A8E">Т</div><div><div class="cb"><b>Тэмүүлэн</b>Зураг ямар ч байсан утаа үнэхээр их байгаа шүү, өнөө өглөө амьсгаадлаа</div></div></div>
+  <div class="hint" style="margin-top:auto"><img class="av g" src="../assets/galaa.png"><div class="bubble"><small>ГАЛАА АХЛАХ</small>Сэтгэгдэл бол <b>сэжүүр</b>, нотолгоо биш. Сараагийн хэлснийг өөрөө хайж батлаарай.</div></div>
+ </div>
+</div></div>
+
+<!-- F -->
+<div class="cap"><h3>F · Галаагаас тусламж авах</h3><p>Гацвал тоглогч өөрөө тусламж хүснэ. 3 түвшинтэй: эхнийх нь үнэгүй, сүүлчийнх нь оноо их хасна. Өдөрт 3 тасалбар.</p>
+<div class="screen">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div class="hud"><span class="chip dark">ӨДӨР 1</span><b style="font-size:12px;color:var(--muted)">Пост 3 / 4</b><span class="chip gold">⭐ 20</span></div>
+ <div class="body"><div class="post" style="opacity:.9"><div class="ph" style="padding:0 12px"><div class="pav">УБШ</div><div><div class="pn">УБ Шуурхай Мэдээ</div><div class="pm">2 цагийн өмнө</div></div></div><div class="ptxt">😱 ӨНӨӨ ӨГЛӨӨ УБ!!...</div><div class="smog" style="height:150px"></div></div></div>
+ <div class="dim"></div>
+ <div class="sheet">
+  <div class="grab"></div>
+  <div style="display:flex;gap:12px;align-items:center"><img src="../assets/galaa.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 6%;background:#EBDBC2"><div style="flex:1"><b style="font-size:17px">Галаа ахлахаас асуух</b><div style="font-size:12px;color:var(--muted)">Тасалбар: 🎟🎟▫ (2/3 үлдсэн)</div></div></div>
+  <div class="bubble" style="border-radius:14px;background:#FFF9E3;border-color:var(--tape)"><small>ГАЛАА АХЛАХ · ЧИГЛЭЛ</small>Зураг <b>анх хэзээ</b> гарсныг мэдвэл их зүйл тодорхой болох байх даа...</div>
+  <div class="lvl" style="opacity:.55"><div class="n">🧭</div><div class="t"><b>1. Чиглэл өгөх</b>Хаанаас эхлэхийг сануулна</div><span class="cost" style="background:#E4F1E6;color:var(--green)">✓ Ашигласан</span></div>
+  <div class="lvl" style="border-color:var(--ink)"><div class="n">🔍</div><div class="t"><b>2. Арга заах</b>Ямар хэрэгслийг яаж ашиглахыг тайлбарлана</div><span class="cost" style="background:#FFF4B8">−2 ⭐</span></div>
+  <div class="lvl"><div class="n">📌</div><div class="t"><b>3. Нотолгоог зааж өгөх</b>Гол баримт хаана байгааг шууд заана</div><span class="cost" style="background:#FBE3E0;color:var(--red)">−5 ⭐</span></div>
+  <div style="font-size:11.5px;color:var(--muted);text-align:center;line-height:1.4">Тусламж аваагүй бол “🧭 Бие даасан мөрдөгч” тэмдэг авна</div>
+  <div class="btn" style="background:#fff;color:var(--ink);border:2px solid var(--ink)">Өөрөө үргэлжлүүлэх</div>
+ </div>
+</div></div>
+
+<!-- G -->
+<div class="cap"><h3>G · Нотолгооны дэвтэр ба дүгнэлт</h3><p>Цуглуулсан нотолгоогоо харж, дүгнэлтээ сонгоно. Дүгнэлтээ батлах 1–2 гол нотолгоогоо тэмдэглэх ёстой. Энэ нь “яагаад” гэдгийг бодуулна.</p>
+<div class="screen" style="background:var(--paper)">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div class="hud"><span class="chip dark">ХЭРЭГ №1</span><b style="font-size:12px;color:var(--muted)">Нотолгооны дэвтэр</b><span class="chip gold">⭐ 20</span></div>
+ <div class="body" style="gap:9px">
+  <div style="display:flex;gap:10px;align-items:center;background:#fff;border-radius:12px;padding:8px"><div class="smog" style="width:60px;height:46px;border-radius:8px"></div><div style="font-size:12px;line-height:1.35"><b>УБ Шуурхай Мэдээ</b><br>😱 ӨНӨӨ ӨГЛӨӨ УБ!! Ийм утаан дунд...</div></div>
+  <b style="font-size:11px;letter-spacing:1px;color:var(--muted)">📒 ЦУГЛУУЛСАН НОТОЛГОО · 3/3</b>
+  <div class="ev"><span class="box"></span><div class="t">Хуудас 5 хоногийн өмнө үүссэн, өмнө нь хямдралын хуудас байсан<small>Эх: Хуудасны ил тод байдал</small></div><span class="str" style="background:#FFF4B8">🟡 Сэжүүр</span></div>
+  <div class="ev sel"><span class="box">✓</span><div class="t">Зураг анх <b>2019.12.04</b>-нд өөр сайтад нийтлэгдсэн<small>Эх: Зургаар хайлт</small></div><span class="str" style="background:#E4F1E6;color:var(--green)">🟢 Хүчтэй</span></div>
+  <div class="ev"><span class="box"></span><div class="t">Өнөөдрийн албан хэмжилт: эрүүл мэндэд хортой түвшин<small>Эх: Хотын Агаарын Чанарын Алба</small></div><span class="str" style="background:#E4F1E6;color:var(--green)">🟢 Хүчтэй</span></div>
+  <b style="font-size:13px;margin-top:2px">Чиний дүгнэлт?</b>
+  <div class="verd"><div>✅<br>Үнэн</div><div class="on">❌<br>Худал</div><div>❓<br>Баталгаагүй</div></div>
+  <div class="hint"><img class="av c" src="../assets/miiku.png"><div class="bubble"><small style="color:#2F3E5C">МИЙКУ</small>Утаа бодит. Гэхдээ 2019 оны зургийг “өнөө өглөө” гэж тараасан нь <b>худал</b>.</div></div>
+  <div class="spacer"></div>
+  <div class="btn">📨 Галаад тайлагнах</div>
+ </div>
+</div></div>
+
+<!-- H -->
+<div class="cap"><h3>H · Мөрдөн шалгалтын үнэлгээ</h3><p>Зөвхөн зөв/буруу биш, мөрдөн шалгасан арга нь үнэлэгдэнэ: гол нотолгоо олсон эсэх, хэдэн эх сурвалж шалгасан, тусламж авсан эсэх. Алгассан сэжүүрийг харуулна.</p>
+<div class="screen" style="background:var(--paper)">
+ <div class="status"><span>9:41</span><span>100%</span></div>
+ <div class="body" style="gap:11px">
+  <div style="background:#E4F1E6;border:2px solid var(--green);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px"><span class="stamp">ХУДАЛ</span><b style="font-size:19px;color:var(--green)">Зөв! Нотолгоо чинь хүчтэй</b></div>
+  <div class="score">
+   <div><span>✅ Дүгнэлт зөв</span><b>+10</b></div>
+   <div><span>🟢 Гол нотолгоо олсон (зургийн огноо)</span><b>+5</b></div>
+   <div><span>🔎 3 өөр эх сурвалж шалгасан</span><b>+3</b></div>
+   <div><span>🦢 Галаагийн тусламж (чиглэл)</span><b>0</b></div>
+   <div><span>Нийт</span><span style="color:var(--green)">+18 ⭐</span></div>
+  </div>
+  <div style="background:#FFF4D6;border:1.5px dashed var(--amber);border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.4">🔦 <b>Алгассан сэжүүр:</b> Сэтгэгдлийн 3 хаяг ижил текст бичсэн. Энэ нь бот ашиглан тараасны шинж.</div>
+  <div class="hint"><img class="av g" src="../assets/galaa.png"><div class="bubble"><small>ГАЛАА АХЛАХ</small>Утаа бодит гэдгийг ч олж мэдсэн нь сайн байна! Хуучин зургийг шинэ мэт тараах нь худал мэдээллийн нийтлэг хэлбэр.</div></div>
+  <div style="background:var(--navy);border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:center;color:#fff"><span style="font-size:24px">🃏</span><div><div style="font-size:10px;font-weight:800;color:var(--tape);letter-spacing:1px">КАРТ №3 · ТЭМДЭГ: 🧭 ХАЖУУГИЙН УНШЛАГА</div><div style="font-family:'Noto Serif',serif;font-weight:700;font-size:16px">Хуучин зураг, шинэ тайлбар</div></div></div>
+  <div class="spacer"></div>
+  <div class="btn">Дараагийн пост →</div>
+ </div>
+</div></div>
+
+</div>
+</body>
+</html>
